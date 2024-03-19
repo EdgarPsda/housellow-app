@@ -55,4 +55,9 @@ public class PropertyController {
     propertyService.deleteProperty(id);
     return ResponseEntity.ok("Property deleted");
   }
+
+  @GetMapping("/properties/price/{min}/{max}")
+  public ResponseEntity<List<PropertyEntity>> getPropertiesInPriceRange(@PathVariable Double min, @PathVariable Double max){
+    return ResponseEntity.ok(propertyService.findPropertiesInPriceRange(min, max));
+  }
 }

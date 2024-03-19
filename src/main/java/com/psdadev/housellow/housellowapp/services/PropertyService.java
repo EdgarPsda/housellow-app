@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.psdadev.housellow.housellowapp.controllers.propertyService;
 import com.psdadev.housellow.housellowapp.exceptions.ResourceNotFoundException;
 import com.psdadev.housellow.housellowapp.models.PropertyDto;
 import com.psdadev.housellow.housellowapp.models.PropertyEntity;
@@ -60,6 +61,17 @@ public class PropertyService{
   public void deleteProperty(Long id){
     PropertyEntity propertyEntity = propertyRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Property not found", "404", HttpStatus.NOT_FOUND));
     propertyRepository.delete(propertyEntity);
+  }
+
+  // Get properties in a price range
+  public List<PropertyEntity> findPropertiesInPriceRange(Double minPrice, Double maxPrice){
+    List<PropertyEntity> result = propertyRepository.findByPriceBetween(minPrice, maxPrice);
+
+    if(result.isEmpty()){
+      throw new ResourceNotFoundException("No properties found in this price range", "404", HttpStatus.NOT_FOUND);
+    }
+
+    return result;
   }
 
 }

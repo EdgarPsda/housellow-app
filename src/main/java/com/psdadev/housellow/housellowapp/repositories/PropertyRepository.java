@@ -24,4 +24,7 @@ public interface PropertyRepository extends JpaRepository<PropertyEntity, Long>{
   // Delete Property
   @SuppressWarnings("null")
   void deleteById(Long id);
+
+  // Get properties in a price range
+  List<PropertyEntity> findByPriceBetween(Double min, Double max);
 }
