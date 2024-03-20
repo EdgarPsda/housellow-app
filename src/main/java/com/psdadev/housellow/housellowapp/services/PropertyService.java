@@ -11,6 +11,7 @@ import com.psdadev.housellow.housellowapp.exceptions.ResourceNotFoundException;
 import com.psdadev.housellow.housellowapp.models.PropertyDto;
 import com.psdadev.housellow.housellowapp.models.PropertyEntity;
 import com.psdadev.housellow.housellowapp.repositories.PropertyRepository;
+import com.psdadev.housellow.housellowapp.specification.PropertySpecification;
 
 @Service
 public class PropertyService{
@@ -72,6 +73,12 @@ public class PropertyService{
     }
 
     return result;
+  }
+
+  // Advanced search
+  @SuppressWarnings("null")
+  public List<PropertyEntity> advancedSearch(String type, Integer minBedrooms, Integer maxPrice, Integer minBathrooms, Double squareMeters){
+    return propertyRepository.findAll(PropertySpecification.withDynamicQuery(type, minBedrooms, maxPrice, minBathrooms, squareMeters));
   }
 
 }

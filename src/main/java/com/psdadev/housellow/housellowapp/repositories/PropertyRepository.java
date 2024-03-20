@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import com.psdadev.housellow.housellowapp.models.PropertyEntity;
 
-public interface PropertyRepository extends JpaRepository<PropertyEntity, Long>{
+public interface PropertyRepository extends JpaRepository<PropertyEntity, Long>, JpaSpecificationExecutor<PropertyEntity>{
 
   // List all properties
   @SuppressWarnings("null")

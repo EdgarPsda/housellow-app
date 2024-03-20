@@ -9,6 +9,7 @@ import com.psdadev.housellow.housellowapp.services.PropertyService;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -60,4 +61,17 @@ public class PropertyController {
   public ResponseEntity<List<PropertyEntity>> getPropertiesInPriceRange(@PathVariable Double min, @PathVariable Double max){
     return ResponseEntity.ok(propertyService.findPropertiesInPriceRange(min, max));
   }
+
+  @GetMapping("/properties/advancedSearch")
+  public ResponseEntity<List<PropertyEntity>> advancedSearch(
+    @RequestParam(required = false) String type,
+    @RequestParam(required = false) Integer minBedrooms,
+    @RequestParam(required = false) Integer maxPrice,
+    @RequestParam(required = false) Integer minBathrooms,
+    @RequestParam(required = false) Integer maxSquareMeters
+  ){
+    List<PropertyEntity> properties = propertyService.advancedSearch(type, minBedrooms, maxPrice, minBathrooms, null);
+    return ResponseEntity.ok(properties);
+  }
+
 }
